@@ -24,7 +24,28 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/userdb", { useN
 //Routes go here
 //==============================================================================================================================//
 
+app.post("/workout",(req, res) => {
+    db.Workout.create(req.body)
+    .then(dbWorkout => {
+        res.json(dbWorkout);
+    }).catch(err => res.json(err));
+})
 
+app.post("/activity", (req, res) => {
+    db.Activity.create(req.body)
+    .then(({_id})=> db.Workout.findOneAndUpdate({},{$push: {activities: _id}}, {new: true}))
+    .then(dbActivity => {
+        res.json(dbActivity);
+    }).catch(err => res.json(err));
+})
+
+app.get("/workouts", (req, res) => {
+    db.Workout.find({})
+    .populate("activities")
+    .then(dbWorkout => {
+        res.json(dbWorkout);
+    }).catch(err => res.json(err));
+})
 
 //==============================================================================================================================//
 

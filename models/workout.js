@@ -8,14 +8,13 @@ const WorkoutSchema = new Schema({
         trim: true,
         required: "What is the name of your workout?"
     },
-    type: String,
 
-    weight: Number,
-
-    sets: Number,
-
-    
-
+    activities: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Activity"
+        }
+    ]
 })
 
 const Workout = mongoose.model("Workout", WorkoutSchema);
