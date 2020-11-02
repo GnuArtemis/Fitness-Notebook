@@ -6,6 +6,7 @@ const WorkoutSchema = new Schema({
     name: {
         type: String,
         trim: true,
+        unique: true,
         required: "What is the name of your workout?"
     },
 

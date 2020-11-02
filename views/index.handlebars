@@ -1,3 +1,89 @@
+<div class="container">
+	{{#each workouts}}
+	<div data-id="{{this._id}}">
+		<div class="row">
+			<div class="col-fill">
+				<h2>{{this.name}}</h2>
+
+				{{#each this.activities}}
+
+				<div class="row">
+					<div class="col-fill col">
+						<h3>Exercise: {{this.name}}</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-fill col">
+						<div class="row">
+							<div class="col-fill col border border-primary">
+								<p>Estimated time: {{this.duration}} minutes</p>
+							</div>
+						</div>
+
+						<div class="row child-borders">
+							<div class="col-3 col border">
+								<span>Type of Exercise:</span>
+								{{#if this.aerobic}}
+								<span>Aerobic (Cardio)</span>
+								{{else}}
+								<span>Anaerobic (Strength)</span>
+								{{/if}}
+							</div>
+
+							<div class="col-3 col border">
+
+
+								<span>Weight:</span>
+								{{#if this.weight}}
+								<span>{{this.weight}}</span>
+								{{else}}
+								<span>Bodyweight</span>
+								{{/if}}
+
+							</div>
+
+							<div class="col-3 col border">
+
+
+								<span>Sets: </span>
+								{{#if this.sets}}
+								<span>{{this.sets}}</span>
+								{{else}}
+								<span>--</span>
+								{{/if}}
+
+								<br>
+
+								<span>Reps: </span>
+								{{#if this.reps}}
+								<span>{{this.reps}}</span>
+								{{else}}
+								<span>--</span>
+								{{/if}}
+
+							</div>
+
+							<div class="col-3 col">
+
+
+								<span>Distance: </span>
+								{{#if this.distance}}
+								<span>{{this.distance}} km</span>
+								{{else}}
+								<span>--</span>
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		{{/each}}
+	</div>
+
+</div>
+
 <form action="/workout" method="POST">
 	<fieldset class="form-group">
 		<label for="workoutName">New Workout:</label>
@@ -34,8 +120,8 @@
 		</label>
 	</fieldset>
 	<fieldset class="form-group" id="weightDiv">
-		<label for="weight">Weight in lbs:</label>
-		<input type="number" name="weight" id="weight" min = "0">
+		<label for="weight">Weight in kg:</label>
+		<input type="number" name="weight" id="weight" min="0">
 	</fieldset>
 	<fieldset class="form-group">
 		<label class="paper-switch">
@@ -48,16 +134,16 @@
 	</fieldset>
 	<fieldset class="form-group" id="setsRepsDiv">
 		<label for="sets">Number of Sets</label>
-		<input type="number" name="sets" id="sets" min = "0">
+		<input type="number" name="sets" id="sets" min="0">
 		<label for="reps">Number of Reps</label>
-		<input type="number" name="reps" id="reps" min = "0">
+		<input type="number" name="reps" id="reps" min="0">
 	</fieldset>
 	<fieldset class="form-group">
 		<label for="duration">Duration in minutes:</label>
-		<input type="number" name="duration" id="duration" min = "0">
+		<input type="number" name="duration" id="duration" min="0">
 		<div id="distanceDiv">
-		<label for="distance">Distance in km:</label>
-		<input type="number" name="distance" id="distance" min = "0">
+			<label for="distance">Distance in km:</label>
+			<input type="number" name="distance" id="distance" min="0">
 		</div>
 	</fieldset>
 

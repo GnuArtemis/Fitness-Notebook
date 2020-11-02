@@ -27,7 +27,14 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dbFitness", { u
 //==============================================================================================================================//
 
 app.get("/",(req, res) => {
-    res.render("index",{})
+    db.Workout.find({}).lean()
+    .populate("activities")
+    .then(dbWorkout => {
+        // res.json(dbWorkout);
+        handleObject = {workouts: dbWorkout}
+        // console.log(handleObject)
+        res.render("index",handleObject)
+    }).catch(err => res.json(err));
 } )
 
 app.get("/workouts", (req, res) => {
@@ -48,7 +55,7 @@ app.post("/workout",(req, res) => {
 
 app.post("/activity", (req, res) => {
     db.Activity.create(req.body)
-    .then(({_id})=> db.Workout.findOneAndUpdate({/*id of workout stored on html somehow */},{$push: {activities: _id}}, {new: true}))
+    .then(({_id})=> db.Workout.findOneAndUpdate({name: "Tuesday"},{$push: {activities: _id}}, {new: true}))
     .then(dbActivity => {
         res.json(dbActivity);
     }).catch(err => res.json(err));
