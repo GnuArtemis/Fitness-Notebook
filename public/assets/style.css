@@ -35,3 +35,7 @@ h3 {
 .modal .modal-body {
     width:60%;
 }
+
+input, select, textarea {
+    width: 100%;
+}

@@ -1,3 +1,5 @@
+let edit;
+
 $(document).ready(function () {
     $("#distanceDiv").hide();
 })
@@ -11,22 +13,14 @@ $("#setsReps").change(function() {
 })
 
 $("#bodyweight").change(function() {
-    if (this.checked) {
-        $('#weight').prop('disabled', true); // If checked disable item                   
-    } else {
-        $('#weight').prop('disabled', false); // If checked enable item       
-    }
+    $("#weightDiv").toggle();
 })
 
 $("#newActivity").on("submit", function (event) {
     event.preventDefault();
-
     const data = {};
     
-    data.workoutid = $("#activitySubmit").data('workoutid');
-
-    console.log(data.workoutid);
-    data.name = $("#activityName").val();
+        data.name = $("#activityName").val();
     data.aerobic = $("#isAerobic").is(':checked');
 
     if (data.aerobic) {
@@ -45,18 +39,39 @@ $("#newActivity").on("submit", function (event) {
     data.duration = $("#duration").val();
 
     console.log(data);
-
-    $.ajax("/activity", {
-        type: 'POST',
-        data: data
-    }).then(function (result) {
-        location.reload();
-    })
+    if(edit) {
+        data.activityid = $("#activitySubmit").data('activityid');
+        $.ajax({
+            url: "/activityUpdate",
+            type: "PUT",
+            data: data
+        }).then(function(err, res){
+            if(err) console.log(err);
+            console.log("activity was updated")
+        })
+    } else {
+        data.workoutid = $("#activitySubmit").data('workoutid');
+        $.ajax("/activity", {
+            type: 'POST',
+            data: data
+        }).then(function (result) {
+            location.reload();
+        })
+    }
 })
 
 $(".activity-btn").on("click", function(event) {
-    console.log("clicked");
-    const workoutid = $(this).data('workoutid');
-    console.log(workoutid);
-    $("#activitySubmit").data('workoutid',workoutid);
+    const isNew = $(this).data('workoutid')
+    console.log(isNew);
+    if (isNew) {
+        edit = false;
+        const workoutid = $(this).data('workoutid');
+        console.log(workoutid);
+        $("#activitySubmit").data('workoutid',workoutid);
+    }else if ($(this).data('activityid')){
+        edit = true;
+        const activityid = $(this).data('activityid')
+        console.log(activityid);
+        $("#activitySubmit").data('activityid',activityid);
+    }
 })

@@ -62,7 +62,14 @@ app.post("/activity", (req, res) => {
     }).catch(err => res.json(err));
 })
 
-
+app.put("/activityUpdate", (req, res) => {
+    const activityid = req.body.activityid;
+    console.log(req.body)
+    db.Activity.findOneAndUpdate({_id: activityid}, req.body, {new: true})
+    .then(dbActivity => {
+        res.json(dbActivity);
+    }).catch(err => res.json(err));
+})
 //==============================================================================================================================//
 
 
