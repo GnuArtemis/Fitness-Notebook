@@ -38,7 +38,6 @@ $("#newActivity").on("submit", function (event) {
 
     data.duration = $("#duration").val();
 
-    console.log(data);
     if(edit) {
         data.activityid = $("#activitySubmit").data('activityid');
         $.ajax({
@@ -47,7 +46,7 @@ $("#newActivity").on("submit", function (event) {
             data: data
         }).then(function(err, res){
             if(err) console.log(err);
-            console.log("activity was updated")
+            location.reload();
         })
     } else {
         data.workoutid = $("#activitySubmit").data('workoutid');
