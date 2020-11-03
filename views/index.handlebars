@@ -1,0 +1,200 @@
+<div class="container">
+	{{#each workouts}}
+	<div>
+		<div class="row">
+			<div class="col-fill">
+				<h2>{{this.name}}</h2>
+
+				<div class="row flex-spaces child-borders">
+					<label class="paper-btn activity-btn" for="modal-2" data-workoutid="{{this._id}}">Add Exercise</label>
+				</div>
+				{{#each this.activities}}
+
+				<div class="row">
+					<div class="col-fill col">
+						<h3>Exercise: {{this.name}}</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-fill col">
+						<div class="row">
+							<div class="col-fill col border border-primary">
+								<p>Estimated time: {{this.duration}} minutes</p>
+							</div>
+						</div>
+
+						<div class="row child-borders">
+							<div class="col-3 col border">
+								<span>Type of Exercise:</span>
+								{{#if this.aerobic}}
+								<span>Aerobic (Cardio)</span>
+								{{else}}
+								<span>Anaerobic (Strength)</span>
+								{{/if}}
+							</div>
+
+							<div class="col-3 col border">
+
+
+								<span>Weight:</span>
+								{{#if this.weight}}
+								<span>{{this.weight}}</span>
+								{{else}}
+								<span>Bodyweight</span>
+								{{/if}}
+
+							</div>
+
+							<div class="col-3 col border">
+
+
+								<span>Sets: </span>
+								{{#if this.sets}}
+								<span>{{this.sets}}</span>
+								{{else}}
+								<span>--</span>
+								{{/if}}
+
+								<br>
+
+								<span>Reps: </span>
+								{{#if this.reps}}
+								<span>{{this.reps}}</span>
+								{{else}}
+								<span>--</span>
+								{{/if}}
+
+							</div>
+
+							<div class="col-3 col">
+
+
+								<span>Distance: </span>
+								{{#if this.distance}}
+								<span>{{this.distance}} km</span>
+								{{else}}
+								<span>--</span>
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		{{/each}}
+		<div class="row flex-spaces child-borders">
+			<label class="paper-btn margin" for="modal-1">New Workout</label>
+		</div>
+	</div>
+
+</div>
+
+<input class="modal-state" id="modal-1" type="checkbox">
+<div class="modal">
+	<label class="modal-bg" for="modal-1"></label>
+	<div class="modal-body">
+		<label class="btn-close" for="modal-1">X</label>
+		<h4 class="modal-title">New Workout:</h4>
+		<form action="/workout" method="POST">
+			<input type="text" id="workoutName" placeholder="Name" name="name">
+			<br>
+			<button class="btn-small">Submit</button>
+		</form>
+	</div>
+</div>
+
+
+<input class="modal-state" id="modal-2" type="checkbox">
+<div class="modal">
+	<label class="modal-bg" for="modal-2"></label>
+	<div class="modal-body">
+		<label class="btn-close" for="modal-2">X</label>
+		<h4 class="modal-title">New Exercise:</h4>
+		<div class="container">
+
+			<form action="/activity" method="POST" id="newActivity">
+				<div class="row modal-row">
+					<div class="col-fill col">
+						<fieldset class="form-group">
+							<label for="activityName">Exercise Name:</label>
+
+							<input type="text" id="activityName" placeholder="Name" name="name">
+
+						</fieldset>
+					</div>
+				</div>
+				<div class="row modal-row">
+					<div class="col-6 col">
+						<fieldset class="form-group">
+
+							<label for="isAerobic" class="paper-switch-tile">
+								<input id="isAerobic" name="aerobic" type="checkbox" />
+								<div class="paper-switch-tile-card border">
+									<div class="paper-switch-tile-card-front border">Anaerobic</div>
+									<div class="paper-switch-tile-card-back border background-primary">Aerobic</div>
+								</div>
+							</label>
+						</fieldset>
+					</div>
+					<div class="col-6 col">
+
+						<fieldset class="form-group">
+							<label for="bodyweight" class="paper-switch-tile">
+								<input id="bodyweight" name="bodyweight" type="checkbox" />
+								<div class="paper-switch-tile-card border">
+									<div class="paper-switch-tile-card-front border">Weights</div>
+									<div class="paper-switch-tile-card-back border background-primary">Bodyweight</div>
+								</div>
+							</label>
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="row modal-row" id="weightDiv">
+					<div class="col-fill col">
+							<label for="weight">Weight in kg:</label>
+							<input type="number" name="weight" id="weight" min="0">
+					</div>
+				</div>
+				<div class="row modal-row">
+					<div class="col-fill col">
+						<fieldset class="form-group">
+							<label class="paper-switch">
+								<input id="setsReps" name="setsReps" type="checkbox" checked />
+								<span class="paper-switch-slider"></span>
+							</label>
+							<label for="setsReps" class="paper-switch-label">
+								Are sets and reps applicable to this activity?
+							</label>
+						</fieldset>
+					</div>
+				</div>
+				<div class="row modal-row" id="setsRepsDiv">
+						<div class="col-6 col">
+							<label for="sets">Number of Sets</label>
+							<input type="number" name="sets" id="sets" min="0">
+						</div>
+						<div class="col-6 col">
+							<label for="reps">Number of Reps</label>
+							<input type="number" name="reps" id="reps" min="0">
+						</div>
+				</div>
+				<div class="row modal-row">
+						<div class="col-6 col">
+							<label for="duration">Duration in minutes:</label>
+							<input type="number" name="duration" id="duration" min="0">
+						</div>
+						<div class="col-6 col">
+							<div id="distanceDiv">
+								<label for="distance">Distance in km:</label>
+								<input type="number" name="distance" id="distance" min="0">
+							</div>
+						</div>
+				</div>
+
+				<button class="btn-small" id="activitySubmit">Submit!</button>
+			</form>
+		</div>
+	</div>
+</div>
