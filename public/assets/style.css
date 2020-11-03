@@ -8,6 +8,30 @@
     margin: .25rem;
 }
 
-h2,h3 {
+.row.modal-row {
+    text-align: left;
+}
+
+h2{
     margin: 1rem;
+    
+}
+
+h3 {
+    margin: 1rem;
+    margin-top: 2rem;
+    text-decoration: underline;
+}
+
+.btn-small {
+    margin:0 auto;
+    display: block;
+}
+
+.form-group .paper-switch-tile-card div {
+    width: 150%;
+}
+
+.modal .modal-body {
+    width:60%;
 }

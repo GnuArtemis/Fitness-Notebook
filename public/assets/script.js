@@ -11,7 +11,11 @@ $("#setsReps").change(function() {
 })
 
 $("#bodyweight").change(function() {
-    $("#weightDiv").toggle();
+    if (this.checked) {
+        $('#weight').prop('disabled', true); // If checked disable item                   
+    } else {
+        $('#weight').prop('disabled', false); // If checked enable item       
+    }
 })
 
 $("#newActivity").on("submit", function (event) {
@@ -19,6 +23,9 @@ $("#newActivity").on("submit", function (event) {
 
     const data = {};
     
+    data.workoutid = $("#activitySubmit").data('workoutid');
+
+    console.log(data.workoutid);
     data.name = $("#activityName").val();
     data.aerobic = $("#isAerobic").is(':checked');
 
@@ -43,6 +50,13 @@ $("#newActivity").on("submit", function (event) {
         type: 'POST',
         data: data
     }).then(function (result) {
-        console.log(result);
+        location.reload();
     })
+})
+
+$(".activity-btn").on("click", function(event) {
+    console.log("clicked");
+    const workoutid = $(this).data('workoutid');
+    console.log(workoutid);
+    $("#activitySubmit").data('workoutid',workoutid);
 })

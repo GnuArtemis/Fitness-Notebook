@@ -49,13 +49,14 @@ app.post("/workout",(req, res) => {
     console.log(req.body)
     db.Workout.create(req.body)
     .then(dbWorkout => {
-        res.json(dbWorkout);
+        res.status(200).redirect('back');
     }).catch(err => res.json(err));
 })
 
 app.post("/activity", (req, res) => {
+    const workoutid = req.body.workoutid;
     db.Activity.create(req.body)
-    .then(({_id})=> db.Workout.findOneAndUpdate({name: "Tuesday"},{$push: {activities: _id}}, {new: true}))
+    .then(({_id})=> db.Workout.findOneAndUpdate({_id: workoutid},{$push: {activities: _id}}, {new: true}))
     .then(dbActivity => {
         res.json(dbActivity);
     }).catch(err => res.json(err));
