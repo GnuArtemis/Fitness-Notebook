@@ -1,3 +1,5 @@
+//A schema of our "exercises" associated with each workout. Name, aerobic(as a true or false), and duration are always present, the others can vary depending on the exercise
+
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;

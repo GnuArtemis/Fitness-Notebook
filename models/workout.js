@@ -1,3 +1,5 @@
+//A schema of our "workouts". Each workout has a name and zero to many associated activities.
+
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
