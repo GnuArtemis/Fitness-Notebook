@@ -1,0 +1,26 @@
+{
+  "name": "fitness-notebook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0",
+    "mongoose": "^5.10.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GnuArtemis/Fitness-Notebook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GnuArtemis/Fitness-Notebook/issues"
+  },
+  "homepage": "https://github.com/GnuArtemis/Fitness-Notebook#readme"
+}
